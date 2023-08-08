@@ -2,7 +2,7 @@
 
 #include "Pickup.h"
 
-#include "Pacman3D/Audio/AudioManager.h",
+#include "Pacman3D/Audio/AudioManager.h"
 #include "PickupInterface.h"
 #include "GameFramework/GameModeBase.h"
 #include "Pacman3D/Pawns/Pacmans/MyPawn_Pacman.h"
