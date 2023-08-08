@@ -1,3 +1,3 @@
-# Pacman3D
+# PACMAN 3D
 
-Developed with Unreal Engine 5
+Developed with Unreal Engine 5.2.0
