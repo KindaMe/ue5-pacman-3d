@@ -47,15 +47,15 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnPacmanIsDead OnPacmanIsDead;
 
-	/**  */
+	/** Function that gets triggered when a pickup item is collected. */
 	UFUNCTION(Category = "Default")
 	void OnPickupCollected(APickup* Pickup, int Score);
 
-	/**  */
+	/** Function that gets triggered when a ghost pawn dies. */
 	UFUNCTION(Category = "Default")
 	void OnGhostPawnIsDead(AMyPawn* Pawn, bool bIsDead);
 
-	/**  */
+	/** Function that gets triggered when Pacman dies. */
 	UFUNCTION(Category = "Default")
 	void OnPacmanPawnIsDead(AMyPawn* Pawn, bool bIsDead);
 
