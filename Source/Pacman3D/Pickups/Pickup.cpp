@@ -37,18 +37,11 @@ APickup::APickup()
 	StaticMesh->SetupAttachment(CapsuleCollision);
 }
 
-
 void APickup::BeginPlay()
 {
 	Super::BeginPlay();
 
 	CapsuleCollision->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnOverlapBegin);
-}
-
-
-void APickup::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }
 
 void APickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,

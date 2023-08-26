@@ -13,43 +13,77 @@ class PACMAN3D_API ACell : public AActor, public ICellInterface
 {
 	GENERATED_BODY()
 
+
+	///////////////////////////////////
+	/// Constructor
+	///
+
 public:
 	ACell();
+
+
+	///////////////////////////////////
+	/// Overrides
+	///
 
 protected:
 	virtual void BeginPlay() override;
 
+
+	///////////////////////////////////
+	/// Collision
+	///
+
 private:
-	/**  */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"),
+		Category = "Collision")
 	TObjectPtr<UStaticMeshComponent> StaticMesh;
 
-	/** ChildActorComponent meant to hold ghosts, pickups etc */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
-	TObjectPtr<UChildActorComponent> ChildActorComponent;
 
-protected:
-	/** Cell Category mainly used in maze creator */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Default")
-	ECellType CellType;
-
-	/** Cell Display Name mainly used in maze creator */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Default")
-	FName DisplayName;
+	///////////////////////////////////
+	/// Cell Info
+	///
 
 public:
-	/** Gets child actor stored in ChildActorComponent */
-	UFUNCTION(BlueprintPure, Category="Default")
-	void GetCellChildActor(AActor*& OutChildActor) const;
-
-	/** Updates class of the PARENT ChildActorComponent */
-	virtual void ChangeCellParentComponentClass(TSubclassOf<ACell> NewParentClass, bool& bOutSuccess) override;
-
 	/** Returns CellType of a cell */
-	UFUNCTION(BlueprintPure, Category="Default")
+	UFUNCTION(BlueprintPure, Category="Info")
 	void GetCellType(ECellType& OutCellType) const;
 
 	/** Returns DisplayName of a cell */
-	UFUNCTION(BlueprintPure, Category="Default")
+	UFUNCTION(BlueprintPure, Category="Info")
 	void GetDisplayName(FName& OutDisplayName) const;
+
+protected:
+	/** Cell Category mainly used in maze creator */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Default|Info")
+	ECellType CellType;
+
+	/** Cell Display Name mainly used in maze creator */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Default|Info")
+	FName DisplayName;
+
+
+	///////////////////////////////////
+	/// Child Actor Component
+	///
+
+public:
+	/** Gets child actor stored in ChildActorComponent */
+	UFUNCTION(BlueprintPure, Category="Child Actor")
+	void GetCellChildActor(AActor*& OutChildActor) const;
+
+private:
+	/** ChildActorComponent meant to hold ghosts, pickups etc */
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"),
+		Category = "Child Actor")
+	TObjectPtr<UChildActorComponent> ChildActorComponent;
+
+
+	///////////////////////////////////
+	/// PARENT Child Actor Component
+	///
+
+public:
+	/** Updates class of the PARENT ChildActorComponent */
+	virtual void ChangeCellParentComponentClass(TSubclassOf<ACell> NewParentClass, bool& bOutSuccess) override;
 };

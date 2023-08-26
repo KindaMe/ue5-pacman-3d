@@ -26,117 +26,159 @@ class PACMAN3D_API AMaze : public AActor
 {
 	GENERATED_BODY()
 
+
+	///////////////////////////////////
+	/// Constructor
+	///
+	
 public:
 	AMaze();
 
+
+	///////////////////////////////////
+	/// Overrides
+	///
+	
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
+
+	///////////////////////////////////
+	/// Delegates & Events
+	///
+	
 public:
-	/**  */
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnAnyPickupCollected OnAnyPickupCollected;
 
-	/**  */
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnGhostIsDead OnGhostIsDead;
 
-	/**  */
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnPacmanIsDead OnPacmanIsDead;
 
 	/** Function that gets triggered when a pickup item is collected. */
-	UFUNCTION(Category = "Default")
+	UFUNCTION(Category = "Events")
 	void OnPickupCollected(APickup* Pickup, int Score);
 
 	/** Function that gets triggered when a ghost pawn dies. */
-	UFUNCTION(Category = "Default")
+	UFUNCTION(Category = "Events")
 	void OnGhostPawnIsDead(AMyPawn* Pawn, bool bIsDead);
 
 	/** Function that gets triggered when Pacman dies. */
-	UFUNCTION(Category = "Default")
+	UFUNCTION(Category = "Events")
 	void OnPacmanPawnIsDead(AMyPawn* Pawn, bool bIsDead);
 
+
+	///////////////////////////////////
+	/// Maze
+	///
+	
+public:
 	/** Updates MazeData.Cells based on current maze layout */
-	UFUNCTION(BlueprintCallable, Category = "Default")
+	UFUNCTION(BlueprintCallable, Category = "Maze")
 	void SaveMazeTemplate();
 
-	/** Resets the Spring Arm's position and length based on the Maze actor's dimensions. */
-	UFUNCTION(BlueprintCallable, Category = "Default")
-	void ResetCameraLocation();
-
-	/** Changes Spring Arm's X/Y location based on the direction parameter passed to the function. */
-	UFUNCTION(BlueprintCallable, Category = "Default")
-	void ChangeCameraLocation(FVector2D InputDirection);
-
-	/** Increases or decreases the Spring Arm's length based on the direction parameter passed to the function. */
-	UFUNCTION(BlueprintCallable, Category = "Default")
-	void ChangeCameraDistance(float InputDirection);
-
-	/** Returns amount of pickups left */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetAmountOfPickupsLeft(int32& OutPickupsLeft) const;
-
-	/** Returns array of pickup references */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetPickups(TArray<APickup*>& OutPickups) const;
-
-	/** Returns array of ghost references */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetGhosts(TArray<AMyPawn_Ghost*>& OutGhosts) const;
-
-	/** Returns pacman reference */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetPacman(AMyPawn_Pacman*& OutPacman) const;
-
 	/** Sets maze template data */
-	UFUNCTION(BlueprintCallable, Category = "Default")
+	UFUNCTION(BlueprintCallable, Category = "Maze")
 	void SetMazeTemplate(const FMazeData& NewMazeTemplate);
 
 	/** Returns maze template data */
-	UFUNCTION(BlueprintPure, Category = "Default")
+	UFUNCTION(BlueprintPure, Category = "Maze")
 	void GetMazeTemplate(FMazeData& OutMazeTemplate) const;
 
-	/** Returns world actual maze size based */
-	UFUNCTION(BlueprintPure, Category = "Default")
+	/** Returns world actual maze size based on Cell Size */
+	UFUNCTION(BlueprintPure, Category = "Maze")
 	FVector GetActualMazeSize() const;
 
 private:
-	/**  */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
-	TObjectPtr<UCameraComponent> Camera;
-
-	/**  */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
-	TObjectPtr<USpringArmComponent> SpringArm;
-
-	/**  */
-	UPROPERTY()
-	TObjectPtr<UArrowComponent> Arrow;
-
-	/**  */
-	UPROPERTY(EditAnywhere, Category = "Default")
+	/** Maze Template Data */
+	UPROPERTY(EditAnywhere, Category = "Maze")
 	FMazeData MazeData;
 
-	/**  */
-	UPROPERTY()
-	TArray<AMyPawn_Ghost*> GhostPawns;
-
-	/**  */
-	UPROPERTY()
-	TArray<APickup*> PickupActors;
-
-	/**  */
-	UPROPERTY()
-	TObjectPtr<AMyPawn_Pacman> PacmanPawn;
-
-	/**  */
+	/** Temporary Cell storage for template saving purposes */
 	UPROPERTY()
 	TArray<UChildActorComponent*> Cells;
 
-	/**  */
-	UPROPERTY(EditDefaultsOnly, Category = "Default")
+	/** Default Size of Cell actor */
+	UPROPERTY(EditDefaultsOnly, Category = "Default|Maze")
 	FVector CellSize = FVector(100.0f, 100.0f, 100.0f);
+
+
+	///////////////////////////////////
+	/// Camera
+	///
+	
+public:
+	/** Resets the Spring Arm's position and length based on the Maze actor's dimensions. */
+	UFUNCTION(BlueprintCallable, Category = "Camera")
+	void ResetCameraLocation();
+
+	/** Changes Spring Arm's X/Y location based on the direction parameter passed to the function. */
+	UFUNCTION(BlueprintCallable, Category = "Camera")
+	void ChangeCameraLocation(FVector2D InputDirection);
+
+	/** Increases or decreases the Spring Arm's length based on the direction parameter passed to the function. */
+	UFUNCTION(BlueprintCallable, Category = "Camera")
+	void ChangeCameraDistance(float InputDirection);
+
+private:
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Camera")
+	TObjectPtr<UCameraComponent> Camera;
+	
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Camera")
+	TObjectPtr<USpringArmComponent> SpringArm;
+
+
+	///////////////////////////////////
+	/// Pickups
+	///
+	
+public:
+	/** Returns amount of pickups left */
+	UFUNCTION(BlueprintPure, Category = "Pickups")
+	void GetAmountOfPickupsLeft(int32& OutPickupsLeft) const;
+
+	/** Returns array of pickup references */
+	UFUNCTION(BlueprintPure, Category = "Pickups")
+	void GetPickups(TArray<APickup*>& OutPickups) const;
+
+private:
+	/** Pickup References */
+	UPROPERTY()
+	TArray<APickup*> PickupActors;
+
+
+	///////////////////////////////////
+	/// Ghosts & Pacman
+	///
+	
+public:
+	/** Returns array of ghost references */
+	UFUNCTION(BlueprintPure, Category = "Ghosts")
+	void GetGhosts(TArray<AMyPawn_Ghost*>& OutGhosts) const;
+
+	/** Returns pacman reference */
+	UFUNCTION(BlueprintPure, Category = "Pacman")
+	void GetPacman(AMyPawn_Pacman*& OutPacman) const;
+
+private:
+	/** Ghost References */
+	UPROPERTY()
+	TArray<AMyPawn_Ghost*> GhostPawns;
+
+	/** Pacman Reference */
+	UPROPERTY()
+	TObjectPtr<AMyPawn_Pacman> PacmanPawn;
+
+
+	///////////////////////////////////
+	/// Other Components
+	///
+	
+private:
+	UPROPERTY()
+	TObjectPtr<UArrowComponent> Arrow;
 };

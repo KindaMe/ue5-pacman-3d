@@ -13,11 +13,15 @@ class UPickupInterface : public UInterface
 	GENERATED_BODY()
 };
 
+/**
+* Includes functions responsible for effects.
+* Classes implementing this interface can utilize these effects as they please.
+*/
 class PACMAN3D_API IPickupInterface
 {
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Effect")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "PACMAN3D|Effect")
 	void FrightenGhosts();
 };

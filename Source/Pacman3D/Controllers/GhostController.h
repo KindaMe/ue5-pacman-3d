@@ -11,21 +11,30 @@ class PACMAN3D_API AGhostController : public AAIController
 {
 	GENERATED_BODY()
 
+	///////////////////////////////////
+	/// Constructor & Destructor
+	///
+	
 public:
 	AGhostController();
 	virtual ~AGhostController() override;
 
+	///////////////////////////////////
+	/// Blackboard
+	///
+	
+public:
 	//** Function to register an observer to a blackboard key. */
-	UFUNCTION(BlueprintCallable, Category = "AI")
+	UFUNCTION(BlueprintCallable, Category = "Blackboard")
 	void RegisterBlackboardObserver(FName KeyName);
 
 	//** Function to unregister an observer from a blackboard key. */
-	UFUNCTION(BlueprintCallable, Category = "AI")
+	UFUNCTION(BlueprintCallable, Category = "Blackboard")
 	void UnregisterBlackboardObserver(FName KeyName);
 
 protected:
 	//** Blueprint implementable function that triggers when the value of a blackboard key changes. */
-	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Blackboard")
 	void OnBlackboardValueChanged(FName KeyName);
 
 private:

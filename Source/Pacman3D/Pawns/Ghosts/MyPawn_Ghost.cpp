@@ -3,12 +3,37 @@
 #include "MyPawn_Ghost.h"
 
 
-AMyPawn_Ghost::AMyPawn_Ghost() : Super()
+AMyPawn_Ghost::AMyPawn_Ghost()
 {
 	// Set default values
 	FrightenedSpeed = 200.0f;
 	DeadSpeed = 1000.0f;
 	CurrentMode = EGhostMode::Scatter;
+}
+
+void AMyPawn_Ghost::GetCurrentMode(EGhostMode& OutCurrentMode) const
+{
+	OutCurrentMode = CurrentMode;
+}
+
+void AMyPawn_Ghost::SetCurrentMode(const EGhostMode NewCurrentMode)
+{
+	CurrentMode = NewCurrentMode;
+}
+
+void AMyPawn_Ghost::GetScatterBT(UBehaviorTree*& OutScatterBT) const
+{
+	OutScatterBT = ScatterBT;
+}
+
+void AMyPawn_Ghost::GetChaseBT(UBehaviorTree*& OutChaseBT) const
+{
+	OutChaseBT = ChaseBT;
+}
+
+void AMyPawn_Ghost::GetFrightenedBT(UBehaviorTree*& OutFrightenedBT) const
+{
+	OutFrightenedBT = FrightenedBT;
 }
 
 void AMyPawn_Ghost::ResetCurrentSpeedToDefault()
@@ -38,29 +63,14 @@ void AMyPawn_Ghost::ResetCurrentSpeedToDefault()
 	SetCurrentSpeed(NewSpeed * Multiplier);
 }
 
-void AMyPawn_Ghost::GetCurrentMode(EGhostMode& OutCurrentMode) const
+void AMyPawn_Ghost::GetFrightenedSpeed(float& OutFrightenedSpeed) const
 {
-	OutCurrentMode = CurrentMode;
+	OutFrightenedSpeed = FrightenedSpeed;
 }
 
-void AMyPawn_Ghost::SetCurrentMode(const EGhostMode NewCurrentMode)
+void AMyPawn_Ghost::GetDeadSpeed(float& OutDeadSpeed) const
 {
-	CurrentMode = NewCurrentMode;
-}
-
-void AMyPawn_Ghost::GetScatterBT(UBehaviorTree*& OutScatterBT) const
-{
-	OutScatterBT = ScatterBT;
-}
-
-void AMyPawn_Ghost::GetChaseBT(UBehaviorTree*& OutChaseBT) const
-{
-	OutChaseBT = ChaseBT;
-}
-
-void AMyPawn_Ghost::GetFrightenedBT(UBehaviorTree*& OutFrightenedBT) const
-{
-	OutFrightenedBT = FrightenedBT;
+	OutDeadSpeed = DeadSpeed;
 }
 
 void AMyPawn_Ghost::GetFrightenedMaterial(UMaterialInterface*& OutFrightenedMaterial) const
@@ -71,14 +81,4 @@ void AMyPawn_Ghost::GetFrightenedMaterial(UMaterialInterface*& OutFrightenedMate
 void AMyPawn_Ghost::GetDeadMaterial(UMaterialInterface*& OutDeadMaterial) const
 {
 	OutDeadMaterial = DeadMaterial;
-}
-
-void AMyPawn_Ghost::GetFrightenedSpeed(float& OutFrightenedSpeed) const
-{
-	OutFrightenedSpeed = FrightenedSpeed;
-}
-
-void AMyPawn_Ghost::GetDeadSpeed(float& OutDeadSpeed) const
-{
-	OutDeadSpeed = DeadSpeed;
 }

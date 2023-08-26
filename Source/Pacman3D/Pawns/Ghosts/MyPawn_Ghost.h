@@ -14,34 +14,96 @@ class PACMAN3D_API AMyPawn_Ghost : public AMyPawn
 {
 	GENERATED_BODY()
 
+
+	///////////////////////////////////
+	/// Constructor
+	///
+
 public:
 	AMyPawn_Ghost();
 
+
+	///////////////////////////////////
+	/// AI
+	///
+
+public:
+	/** Returns Current ghost Mode */
+	UFUNCTION(BlueprintPure, Category = "AI")
+	void GetCurrentMode(EGhostMode& OutCurrentMode) const;
+
+	/** Sets Current ghost Mode */
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	void SetCurrentMode(EGhostMode NewCurrentMode);
+
+	/** Returns Sub BTree for Scatter ghost mode */
+	UFUNCTION(BlueprintPure, Category = "AI")
+	void GetScatterBT(UBehaviorTree*& OutScatterBT) const;
+
+	/** Returns Sub BTree for Chase ghost mode */
+	UFUNCTION(BlueprintPure, Category = "AI")
+	void GetChaseBT(UBehaviorTree*& OutChaseBT) const;
+
+	/** Returns Sub BTree for Frightened ghost mode */
+	UFUNCTION(BlueprintPure, Category = "AI")
+	void GetFrightenedBT(UBehaviorTree*& OutFrightenedBT) const;
+
 private:
+	/** Ghost Current Mode */
+	UPROPERTY(EditDefaultsOnly, Category = "Default|AI")
+	EGhostMode CurrentMode;
+
 	/** Sub BTree for Scatter ghost mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default")
+	UPROPERTY(EditDefaultsOnly, Category = "Default|AI")
 	TObjectPtr<UBehaviorTree> ScatterBT;
 
 	/** Sub BTree for Chase ghost mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default")
+	UPROPERTY(EditDefaultsOnly, Category = "Default|AI")
 	TObjectPtr<UBehaviorTree> ChaseBT;
 
 	/** Sub BTree for Frightened ghost mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default")
+	UPROPERTY(EditDefaultsOnly, Category = "Default|AI")
 	TObjectPtr<UBehaviorTree> FrightenedBT;
 
-	/** Ghost Current Mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default")
-	EGhostMode CurrentMode;
 
+	///////////////////////////////////
+	/// Movement
+	///
+
+public:
+	/** Resets Current Speed to default based on Current ghost Mode */
+	virtual void ResetCurrentSpeedToDefault() override;
+
+	UFUNCTION(BlueprintPure, Category = "Movement")
+	void GetFrightenedSpeed(float& OutFrightenedSpeed) const;
+
+	UFUNCTION(BlueprintPure, Category = "Movement")
+	void GetDeadSpeed(float& OutDeadSpeed) const;
+
+private:
 	/** Ghost default speed while in Frightened mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default|Speed")
+	UPROPERTY(EditDefaultsOnly, Category = "Default|Movement")
 	float FrightenedSpeed;
 
 	/** Ghost default speed while in Dead mode */
-	UPROPERTY(EditDefaultsOnly, Category = "Default|Speed")
+	UPROPERTY(EditDefaultsOnly, Category = "Default|Movement")
 	float DeadSpeed;
 
+
+	///////////////////////////////////
+	/// Materials
+	///
+
+public:
+	/** Returns Material used when ghost is in Frightened Mode */
+	UFUNCTION(BlueprintPure, Category = "Materials")
+	void GetFrightenedMaterial(UMaterialInterface*& OutFrightenedMaterial) const;
+
+	/** Returns Material used when ghost is in Dead Mode */
+	UFUNCTION(BlueprintPure, Category = "Materials")
+	void GetDeadMaterial(UMaterialInterface*& OutDeadMaterial) const;
+
+private:
 	/** Ghost material while in Frightened mode */
 	UPROPERTY(EditDefaultsOnly, Category = "Default|Materials")
 	TObjectPtr<UMaterialInterface> FrightenedMaterial;
@@ -49,44 +111,4 @@ private:
 	/** Ghost material while in Dead mode */
 	UPROPERTY(EditDefaultsOnly, Category = "Default|Materials")
 	TObjectPtr<UMaterialInterface> DeadMaterial;
-
-public:
-	/** Resets Current Speed to default based on Current ghost Mode */
-	virtual void ResetCurrentSpeedToDefault() override;
-
-	/** Returns Current ghost Mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetCurrentMode(EGhostMode& OutCurrentMode) const;
-
-	/** Sets Current ghost Mode */
-	UFUNCTION(BlueprintCallable, Category = "Default")
-	void SetCurrentMode(EGhostMode NewCurrentMode);
-
-	/** Returns Sub BTree for Scatter ghost mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetScatterBT(UBehaviorTree*& OutScatterBT) const;
-
-	/** Returns Sub BTree for Chase ghost mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetChaseBT(UBehaviorTree*& OutChaseBT) const;
-
-	/** Returns Sub BTree for Frightened ghost mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetFrightenedBT(UBehaviorTree*& OutFrightenedBT) const;
-
-	/** Returns Material used when ghost is in Frightened Mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetFrightenedMaterial(UMaterialInterface*& OutFrightenedMaterial) const;
-
-	/** Returns Material used when ghost is in Dead Mode */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetDeadMaterial(UMaterialInterface*& OutDeadMaterial) const;
-
-	/** Returns Frightened Speed */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetFrightenedSpeed(float& OutFrightenedSpeed) const;
-
-	/** Returns Dead Speed */
-	UFUNCTION(BlueprintPure, Category = "Default")
-	void GetDeadSpeed(float& OutDeadSpeed) const;
 };

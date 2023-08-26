@@ -51,10 +51,6 @@ void AMyPawn::OnConstruction(const FTransform& Transform)
 	ResetCurrentSpeedToDefault();
 }
 
-void AMyPawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
 
 void AMyPawn::GetDefaultSpeed(float& OutDefaultSpeed) const
 {

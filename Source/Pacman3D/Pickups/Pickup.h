@@ -15,48 +15,79 @@ class PACMAN3D_API APickup : public AActor
 {
 	GENERATED_BODY()
 
+
+	///////////////////////////////////
+	/// Constructor
+	///
+
 public:
 	APickup();
 
+
+	///////////////////////////////////
+	/// Overrides
+	///
+	
 protected:
 	virtual void BeginPlay() override;
 
-public:
-	virtual void Tick(float DeltaTime) override;
 
-private:
-	/**  */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
-	TObjectPtr<UCapsuleComponent> CapsuleCollision;
-
-	/**  */
-	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Default")
-	TObjectPtr<UStaticMeshComponent> StaticMesh;
-
-	/**  */
-	UPROPERTY(EditDefaultsOnly, Category="Default")
-	USoundBase* PickupSound;
-
-	/**  */
-	UPROPERTY(EditDefaultsOnly, Category = "Default", meta = (ClampMin = "0"))
-	int32 Score;
+	///////////////////////////////////
+	/// Collision
+	///
 
 protected:
-	/** Call any PickupInterface Effects you want here. If GameMode is valid then it implements PickupInterface. */
-	UFUNCTION(BlueprintImplementableEvent, Category = "Default")
-	void ApplyPickupEffects(AGameModeBase* GameMode);
-
-	/**  */
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	                    int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-public:
+private:
 	/**  */
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
+	TObjectPtr<UCapsuleComponent> CapsuleCollision;
+
+	/**  */
+	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
+	TObjectPtr<UStaticMeshComponent> StaticMesh;
+
+
+	///////////////////////////////////
+	/// Sound
+	///
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category="Default|Sound")
+	USoundBase* PickupSound;
+
+
+	///////////////////////////////////
+	/// Score
+	///
+
+public:
+	UFUNCTION(BlueprintPure, Category="Score")
+	void GetScore(int32& OutScore) const;
+
+private:
+	/** Score value assigned to pickup */
+	UPROPERTY(EditDefaultsOnly, Category = "Default|Score", meta = (ClampMin = "0"))
+	int32 Score;
+
+
+	///////////////////////////////////
+	/// Effects
+	///
+
+protected:
+	/** Call any PickupInterface Effects you want here. If GameMode is valid then it implements PickupInterface. */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effects")
+	void ApplyPickupEffects(AGameModeBase* GameMode);
+
+	///////////////////////////////////
+	/// Delegates
+	///
+
+public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnCollected OnCollected;
-
-	/** Returns score value of a pickup */
-	UFUNCTION(BlueprintPure, Category="Default")
-	void GetScore(int32& OutScore) const;
 };

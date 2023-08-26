@@ -174,6 +174,21 @@ void AMaze::SaveMazeTemplate()
 	}
 }
 
+void AMaze::SetMazeTemplate(const FMazeData& NewMazeTemplate)
+{
+	MazeData = NewMazeTemplate;
+}
+
+void AMaze::GetMazeTemplate(FMazeData& OutMazeTemplate) const
+{
+	OutMazeTemplate = MazeData;
+}
+
+FVector AMaze::GetActualMazeSize() const
+{
+	return FVector(CellSize.X * (MazeData.Height - 1), CellSize.Y * (MazeData.Width - 1), CellSize.Z);
+}
+
 void AMaze::ResetCameraLocation()
 {
 	// Calculating an actual maze size
@@ -254,17 +269,4 @@ void AMaze::GetPacman(AMyPawn_Pacman*& OutPacman) const
 	OutPacman = PacmanPawn;
 }
 
-void AMaze::SetMazeTemplate(const FMazeData& NewMazeTemplate)
-{
-	MazeData = NewMazeTemplate;
-}
 
-void AMaze::GetMazeTemplate(FMazeData& OutMazeTemplate) const
-{
-	OutMazeTemplate = MazeData;
-}
-
-FVector AMaze::GetActualMazeSize() const
-{
-	return FVector(CellSize.X * (MazeData.Height - 1), CellSize.Y * (MazeData.Width - 1), CellSize.Z);
-}

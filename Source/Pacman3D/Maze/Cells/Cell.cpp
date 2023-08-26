@@ -25,6 +25,16 @@ void ACell::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ACell::GetCellType(ECellType& OutCellType) const
+{
+	OutCellType = CellType;
+}
+
+void ACell::GetDisplayName(FName& OutDisplayName) const
+{
+	OutDisplayName = DisplayName;
+}
+
 void ACell::GetCellChildActor(AActor*& OutChildActor) const
 {
 	OutChildActor = nullptr;
@@ -46,14 +56,4 @@ void ACell::ChangeCellParentComponentClass(const TSubclassOf<ACell> NewParentCla
 		}
 	}
 	bOutSuccess = false;
-}
-
-void ACell::GetCellType(ECellType& OutCellType) const
-{
-	OutCellType = CellType;
-}
-
-void ACell::GetDisplayName(FName& OutDisplayName) const
-{
-	OutDisplayName = DisplayName;
 }

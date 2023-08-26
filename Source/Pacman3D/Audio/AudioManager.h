@@ -10,37 +10,58 @@ class PACMAN3D_API UAudioManagerSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
+	///////////////////////////////////
+	/// Overrides
+	///
+	
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
-	UFUNCTION(BlueprintCallable, Category="Audio|UI")
+	///////////////////////////////////
+	/// Main Loop Audio Component
+	///
+	
+private:
+	UPROPERTY()
+	UAudioComponent* MainLoopComponent;
+
+	///////////////////////////////////
+	/// Sound Triggers
+	///
+	
+public:
+	UFUNCTION(BlueprintCallable, Category="UI")
 	void PlayButtonHoverSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|UI")
+	UFUNCTION(BlueprintCallable, Category="UI")
 	void PlayButtonClickSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Gameplay")
+	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void PlayPickupSound(USoundBase* Sound);
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Misc")
+	UFUNCTION(BlueprintCallable, Category="Misc")
 	void PlayMainLoopSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Misc")
+	UFUNCTION(BlueprintCallable, Category="Misc")
 	void StopMainLoopSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Gameplay")
+	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void PlaySuccessSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Gameplay")
+	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void PlayFailSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Gameplay")
+	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void PlayPowerUpStartSound();
 
-	UFUNCTION(BlueprintCallable, Category="Audio|Gameplay")
+	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void PlayPowerUpEndSound();
 
+	///////////////////////////////////
+	/// Cues
+	///
+	
 private:
 	UPROPERTY()
 	USoundBase* ButtonHoverSound;
@@ -63,10 +84,12 @@ private:
 	UPROPERTY()
 	USoundBase* PowerUpEndSound;
 
+
+	///////////////////////////////////
+	/// Sound Concurrency
+	///
+	
 private:
 	// UPROPERTY()
 	// USoundConcurrency* SoundConcurrencyUI;
-
-	UPROPERTY()
-	UAudioComponent* MainLoopComponent;
 };
