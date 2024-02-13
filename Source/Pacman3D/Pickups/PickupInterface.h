@@ -22,6 +22,6 @@ class PACMAN3D_API IPickupInterface
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "PACMAN3D|Effect")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Effects")
 	void FrightenGhosts();
 };

@@ -27,7 +27,7 @@ public:
 	///////////////////////////////////
 	/// Overrides
 	///
-	
+
 protected:
 	virtual void BeginPlay() override;
 

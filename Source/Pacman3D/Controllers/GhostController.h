@@ -14,7 +14,7 @@ class PACMAN3D_API AGhostController : public AAIController
 	///////////////////////////////////
 	/// Constructor & Destructor
 	///
-	
+
 public:
 	AGhostController();
 	virtual ~AGhostController() override;
@@ -22,7 +22,7 @@ public:
 	///////////////////////////////////
 	/// Blackboard
 	///
-	
+
 public:
 	//** Function to register an observer to a blackboard key. */
 	UFUNCTION(BlueprintCallable, Category = "Blackboard")

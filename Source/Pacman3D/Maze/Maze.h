@@ -30,7 +30,7 @@ class PACMAN3D_API AMaze : public AActor
 	///////////////////////////////////
 	/// Constructor
 	///
-	
+
 public:
 	AMaze();
 
@@ -38,7 +38,7 @@ public:
 	///////////////////////////////////
 	/// Overrides
 	///
-	
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -48,7 +48,7 @@ protected:
 	///////////////////////////////////
 	/// Delegates & Events
 	///
-	
+
 public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnAnyPickupCollected OnAnyPickupCollected;
@@ -75,7 +75,7 @@ public:
 	///////////////////////////////////
 	/// Maze
 	///
-	
+
 public:
 	/** Updates MazeData.Cells based on current maze layout */
 	UFUNCTION(BlueprintCallable, Category = "Maze")
@@ -110,7 +110,7 @@ private:
 	///////////////////////////////////
 	/// Camera
 	///
-	
+
 public:
 	/** Resets the Spring Arm's position and length based on the Maze actor's dimensions. */
 	UFUNCTION(BlueprintCallable, Category = "Camera")
@@ -127,7 +127,7 @@ public:
 private:
 	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Camera")
 	TObjectPtr<UCameraComponent> Camera;
-	
+
 	UPROPERTY(BlueprintReadOnly, EditInstanceOnly, meta = (AllowPrivateAccess = "true"), Category = "Camera")
 	TObjectPtr<USpringArmComponent> SpringArm;
 
@@ -135,7 +135,7 @@ private:
 	///////////////////////////////////
 	/// Pickups
 	///
-	
+
 public:
 	/** Returns amount of pickups left */
 	UFUNCTION(BlueprintPure, Category = "Pickups")
@@ -154,7 +154,7 @@ private:
 	///////////////////////////////////
 	/// Ghosts & Pacman
 	///
-	
+
 public:
 	/** Returns array of ghost references */
 	UFUNCTION(BlueprintPure, Category = "Ghosts")
@@ -177,7 +177,7 @@ private:
 	///////////////////////////////////
 	/// Other Components
 	///
-	
+
 private:
 	UPROPERTY()
 	TObjectPtr<UArrowComponent> Arrow;

@@ -13,7 +13,7 @@ class PACMAN3D_API UAudioManagerSubsystem : public UGameInstanceSubsystem
 	///////////////////////////////////
 	/// Overrides
 	///
-	
+
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
@@ -21,7 +21,7 @@ public:
 	///////////////////////////////////
 	/// Main Loop Audio Component
 	///
-	
+
 private:
 	UPROPERTY()
 	UAudioComponent* MainLoopComponent;
@@ -29,7 +29,7 @@ private:
 	///////////////////////////////////
 	/// Sound Triggers
 	///
-	
+
 public:
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void PlayButtonHoverSound();
@@ -61,7 +61,7 @@ public:
 	///////////////////////////////////
 	/// Cues
 	///
-	
+
 private:
 	UPROPERTY()
 	USoundBase* ButtonHoverSound;
@@ -88,7 +88,7 @@ private:
 	///////////////////////////////////
 	/// Sound Concurrency
 	///
-	
+
 private:
 	// UPROPERTY()
 	// USoundConcurrency* SoundConcurrencyUI;

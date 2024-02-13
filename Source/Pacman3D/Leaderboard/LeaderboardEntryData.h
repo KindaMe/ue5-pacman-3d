@@ -21,3 +21,5 @@ struct PACMAN3D_API FLeaderboardEntryData
 	{
 	}
 };
+
+bool operator==(const FLeaderboardEntryData& A, const FLeaderboardEntryData& B);

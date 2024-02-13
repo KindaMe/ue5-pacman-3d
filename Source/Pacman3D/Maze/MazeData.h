@@ -38,3 +38,5 @@ public:
 	{
 	}
 };
+
+bool operator==(const FMazeData& A, const FMazeData& B);
